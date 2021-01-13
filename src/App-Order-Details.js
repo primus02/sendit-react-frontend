@@ -7,7 +7,7 @@ import "./App.css";
 function AppOrderDetails(props){
    useEffect(()=>{
       getorderDetails();
-   });
+   }, []);
 
    const username = localStorage.getItem("username");
 

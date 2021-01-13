@@ -8,7 +8,7 @@ function AdminProfile(props){
 
     useEffect(()=>{
          getAllAppOrders();
-    });
+    }, []);
 
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";
@@ -75,8 +75,8 @@ function AdminProfile(props){
                     
                         <div className="details">  
                             <h3><label>Total number of orders: </label><span className="total-num">{ordersCount} </span></h3>  
-                            <h3><label>Total number of completed orders: </label> <span className="total-completed">{completedCount}</span></h3> 
-                            <h3><label>Total number of In-transit orders: </label> <span className="total-transit">{intransitCount}</span></h3> 
+                            <h3><label>Total number of completed orders: </label> <span className="total-completed delivered">{completedCount}</span></h3> 
+                            <h3><label>Total number of In-transit orders: </label> <span className="total-transit pending">{intransitCount}</span></h3> 
                         </div>
                     
                 </div>

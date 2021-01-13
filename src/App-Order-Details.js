@@ -52,7 +52,7 @@ function AppOrderDetails(props){
             
             <div className="main-body">
                 <header>
-                    <h1> Hello <span className="username">{username}</span>!</h1>
+                    <h1> Hello Admin <span className="username">{username}</span>!</h1>
                 </header>
 
 

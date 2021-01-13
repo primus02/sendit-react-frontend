@@ -9,7 +9,7 @@ function OrderDetails(props){
 
     useEffect(()=>{
         getOrder();
-    }, []);
+    });
 
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";

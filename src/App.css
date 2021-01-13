@@ -1,8 +1,3 @@
-*{
-  margin : 0;
-  padding: 0;
-  box-sizing: border-box;;
-}
 
 /*** HOME PAGE ***/
 
@@ -132,7 +127,8 @@ header p{
   font-style: italic;
 }
 img{
-  width: 1000px;
+  width: 70%;
+  margin: auto;
 }
 .info{
   margin-top: 40px;

@@ -9,7 +9,7 @@ function OrderDetails(props){
 
     useEffect(()=>{
         getOrder();
-    });
+    }, []);
 
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";
@@ -83,7 +83,7 @@ function OrderDetails(props){
                                 <label>Date of creation: <span className="date">{order.date}</span></label>
 
                                 {order.status === "pending" ? <p><button className="edit"><Link to={`/change-destination/${order._id}`}>Edit-Destination</Link></button><button className="cancel"><Link to={`/cancel-order/${order._id}`}>Cancel-Order</Link></button></p> 
-                                : <p>Status: Delivered</p>}
+                                : <p className="delivered">Status: Delivered</p>}
                             </div>
                     </div>
 

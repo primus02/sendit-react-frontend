@@ -191,7 +191,7 @@ background-color: indianred;
 .profile-info{
 text-align: left;
 border: 3px solid lightgray;
-width: 400px;
+width: 330px;
 margin: 20px auto;
 background-color:#efe3e3;
 }
@@ -223,8 +223,8 @@ margin-bottom: 70px;
 /** GET ALL ORDERS PAGE **/
 
 button{
-  margin-left: 8px;
-  padding: 1px 5px;
+  margin-left: 6px;
+  padding: 1px 4px;
   height: 25px;
   cursor: pointer;
 }
@@ -234,7 +234,7 @@ button{
 }
 .order-details{
 border: 1px solid lightgray;
-width: 350px;
+width: 320px;
 margin: 10px auto;
 }
 .order-info{
@@ -288,7 +288,7 @@ padding: 5px;
 .admin-profile{
 text-align: left;
 border: 3px solid lightgray;
-width: 400px;
+width: 330px;
 margin: 20px auto;
 background-color:#efe3e3;
 padding: 10px;

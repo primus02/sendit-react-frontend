@@ -8,7 +8,7 @@ import "./App.css";
 function UserProfile(props){
     useEffect(()=>{
         getuserDetails();
-    }, []);
+    });
 
 const username = localStorage.getItem("username");
 

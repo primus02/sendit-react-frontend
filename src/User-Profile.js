@@ -8,7 +8,7 @@ import "./App.css";
 function UserProfile(props){
     useEffect(()=>{
         getuserDetails();
-    });
+    }, []);
 
 const username = localStorage.getItem("username");
 
@@ -87,8 +87,8 @@ const token = localStorage.getItem("token");
                     <h3>Your order history is as displayed;</h3>
                     <div className="details">  
                         <h3><label>Total number of orders: </label><span className="total-num">{orders.length > 1 ? orders.length : 0} </span></h3>  
-                        <h3><label>Total number of completed orders: </label> <span className="total-completed">{completedCount}</span></h3> 
-                        <h3><label>Total number of In-transit orders: </label> <span className="total-transit">{inTransitCount}</span></h3> 
+                        <h3><label>Total number of completed orders: </label> <span className="total-completed delivered">{completedCount}</span></h3> 
+                        <h3><label>Total number of In-transit orders: </label> <span className="total-transit pending">{inTransitCount}</span></h3> 
                     </div>
                 
                 </div>

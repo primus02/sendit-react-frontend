@@ -134,7 +134,7 @@ const updatePassword =(e)=>{
 
                         <ol>
                             <li>You first need to create an account.<Link to="/sign-up">Sign Up</Link></li>
-                            <li> Then, Sign into your account. <Link to="/send-it">Sign In</Link></li>
+                            <li> Then, Sign into your account. <Link to="/">Sign In</Link></li>
                             <li>Once signed in, you have access to the following available options: 
                                 <ul>
                                     <li>Create a parcel delivery order</li> 

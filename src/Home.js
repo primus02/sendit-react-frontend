@@ -15,7 +15,7 @@ function Home(props){
         }, 5000);
 
         return ()=> clearInterval(imageChanger);
-    }, []);
+    });
 
     const url = "https://sendit.herokuapp.com";
 

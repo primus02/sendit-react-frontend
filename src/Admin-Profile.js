@@ -8,7 +8,7 @@ function AdminProfile(props){
 
     useEffect(()=>{
          getAllAppOrders();
-    }, []);
+    });
 
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";

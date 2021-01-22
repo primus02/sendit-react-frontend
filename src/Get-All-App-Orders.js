@@ -30,7 +30,7 @@ function GetAllAppOrders(props){
         setNewLocation(document.getElementsByClassName('new-location')[0].value);
       }
 
-    },[]);
+    });
 
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";

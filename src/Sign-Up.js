@@ -37,7 +37,7 @@ function SignUp(props){
 
         return ()=> clearInterval(imageChanger);
 
-    }, []);
+    });
 
 
     const url = "https://sendit.herokuapp.com";

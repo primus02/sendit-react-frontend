@@ -9,7 +9,7 @@ function GetAllOrders(props){
 
     useEffect(()=>{
          getOrders();
-    });
+    },[]);
 
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";
@@ -69,7 +69,7 @@ function GetAllOrders(props){
                     <div className="orders-holder">
                         {orders.map(order=>(
                             <div className="orders" key={order._id}>  
-                               <p className="order">Order<button className="details-btn"><Link to={`/order/${order._id}`}>Details</Link></button><button className="status">Status: <span className={order.status==="pending" ? "red" : "status-state"}>{order.status}</span></button><button className="location">Pres-Location: <span className="present-location">{order.preslocation}</span></button></p> 
+                               <p className="order">Order<button className="details-btn"><Link to={`/order/${order._id}`}>Details</Link></button><button className="status">Status: <span className={order.status==="pending" ? "red" : "status-state"}>{order.status}</span></button><button className="location1">Pres-Location: <span className="present-location">{order.preslocation}</span></button></p> 
                             </div>
                         ))}
                     </div>

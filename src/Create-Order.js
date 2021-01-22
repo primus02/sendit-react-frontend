@@ -1,24 +1,56 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import  {toast, ToastContainer, Zoom} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
-
-
+const google= window.google ? window.google : {};
 
 
 function CreateOrder(props){
-
-    const token = localStorage.getItem("token");
-    const url = "https://sendit.herokuapp.com";
-    const username = localStorage.getItem("username");
 
     const [location, setLocation]= useState("");
     const [destination, setDestination]= useState("");
     const [price, setPrice]= useState("");
     const [mobileNumber, setMobileNumber]= useState("");
     const [weight, setWeight]= useState("");
+
+    useEffect(()=>{
+
+        let  autocomplete = new google.maps.places.Autocomplete(
+            (document.getElementsByClassName('input-location')[0]),
+    
+            { types: ['geocode']});
+
+        let  autocomplete1 = new google.maps.places.Autocomplete(
+                (document.getElementsByClassName('input-dest')[0]),
+        
+                { types: ['geocode']});
+    
+    
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    
+               completeAddress(autocomplete);
+    
+        });
+
+        google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+    
+            completeAddress(autocomplete1);
+ 
+     });
+    
+        const completeAddress=()=>{
+            setLocation(document.getElementsByClassName('input-location')[0].value);
+            setDestination(document.getElementsByClassName('input-dest')[0].value);
+          }
+
+    }, []);
+
+    const token = localStorage.getItem("token");
+    const url = "https://sendit.herokuapp.com";
+    const username = localStorage.getItem("username");
+
 
     const updateLocation=(e)=>{
          setLocation(e.target.value);
@@ -28,29 +60,25 @@ function CreateOrder(props){
         setDestination(e.target.value);
    };
 
-const updateMobileNumber=(e)=>{
+   const updateMobileNumber=(e)=>{
     setMobileNumber(e.target.value);
-};
+   };
 
-const updateWeight=(e)=>{
+   const updateWeight=(e)=>{
     setWeight(e.target.value);
     setPrice(e.target.value * 10);
-};
+   };
 
 
 const createOrder=(e)=>{
     e.preventDefault();
 	
-    if(location ==="" || destination ==="" || price ==="" || weight ==="" || mobileNumber===""){
-		
-        toast.warning("Kindly provide all necessary fields");
-        return;
-    }
-   if(mobileNumber.length < 11 || mobileNumber.length >11){
-		
-		toast.warning("Mobile must be 11 digits");
-		return false;
-	}
+     const number= /^[0-9]+$/;
+
+  if(!weight.match(number)){
+      toast.info("Please enter a valid figure in the weight field! (do not include any letter");
+      return;
+  }
     else{
 
         fetch(`${url}/create-order`, {
@@ -82,7 +110,7 @@ const createOrder=(e)=>{
         .catch(err=>{
             console.log("Error", err);
         });
-    }
+       }
 
 };
 
@@ -132,10 +160,10 @@ const signOut=()=>{
                             <input type="text" className="input-dest" placeholder="Destination" value={destination} onChange={updateDestination}/><br></br>
                             
                             <label>Recipient Mobile: </label>
-                            <input type="text" className="input-mobile" placeholder="Mobile number" value={mobileNumber} onChange={updateMobileNumber}/><br></br>
+                            <input type="tel" className="input-mobile" placeholder="example: +2349012345678"  pattern="\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$" value={mobileNumber} onChange={updateMobileNumber}/><br></br>
 
                             <label>Weight(Kg):</label>
-                            <input type="text" className="input-wt" placeholder="weight in kg" value={weight} onChange={updateWeight}/><br></br>
+                            <input type="text" className="input-wt" placeholder="weight" value={weight} onChange={updateWeight}/><br></br>
 
                             <label>Price(#):</label>
                             <input type="number" className="input-price" placeholder="price" value={price} disabled />

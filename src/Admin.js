@@ -43,12 +43,8 @@ function AdminSignin(props){
            .then(res=>res.json())
            .then(res=>{
            
-           if(res.message=== "Username invalid"){
-               toast.error("Kindly provide a valid username!");
-               return;
-           }
-           else if(res.message=== "Password invalid" || res.message=== "Auth failed"){
-               toast.error("Kindly provide a valid password!");
+           if(res.message=== "Username invalid" || res.message=== "Password invalid" || res.message=== "Auth failed"){
+               toast.error("invalid username / password!");
                return;
            }
            else if(res.token){

@@ -11,12 +11,8 @@ import UserProfile from "./User-Profile";
 import CreateOrder from "./Create-Order";
 import GetAllOrders from "./Get-All-Orders";
 import OrderDetails from "./Order-Details";
-import ChangeDestination from "./Change-Destination";
-import CancelOrder from "./Cancel-Order";
 import AdminProfile from "./Admin-Profile";
 import AppOrderDetails from "./App-Order-Details";
-import ChangeLocation from "./Change-Location";
-import ChangeStatus from "./Change-Status";
 import GetAllAppOrders from "./Get-All-App-Orders";
 
 function App() {
@@ -34,12 +30,8 @@ function App() {
         <Route path="/create-order" component={CreateOrder}></Route>
         <Route path="/all-orders" component={GetAllOrders}></Route>
         <Route path="/order/:id" component={OrderDetails}></Route>
-        <Route path="/change-destination/:id" component={ChangeDestination}></Route>
-        <Route path="/cancel-order/:id" component={CancelOrder}></Route>
         <Route path="/admin-profile" component={AdminProfile}></Route>
         <Route path="/app-order/:id" component={AppOrderDetails}></Route>
-        <Route path="/order-location/:id" component={ChangeLocation}></Route>
-        <Route path="/order-status/:id" component={ChangeStatus}></Route>
         <Route path="/all-app-orders" component={GetAllAppOrders}></Route>
         </Switch>
       </div>

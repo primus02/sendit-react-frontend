@@ -14,16 +14,16 @@ body{
 }
 .nav{
   padding: 5px;
-background-color: #c7d1d5;
+  background-color: #c7d1d5;
 }
 .nav li{
   display: inline-block;
   margin-left: 8px;
   text-align: center;
-  padding: 2px 5px;
   color: #b97c0d;
   background-color: #f6e4e4; 
   list-style: none;
+  padding: 2px 5px;
 }
 nav li:hover{
   background-color: #b97c0d;
@@ -42,7 +42,7 @@ font-size: 18px;
 .sign-in{
   color: #1de41d;
   margin-top: 10px;
-font-size: 16px;
+  font-size: 16px;
 }
 .sign a{
   width: 70px;
@@ -61,7 +61,7 @@ font-size: 16px;
 .sign h3{
 margin-right: 120px;
 margin-bottom: 20px;
-font-size: 20px;
+font-size: 24px;
 }
 .sign-in-btn{
   width: 70px;
@@ -103,7 +103,7 @@ input{
   text-align: left;
   padding: 3px;
   color: brown;
-font-size: 14px;
+  font-size: 14px;
 }
 .main-body{
   padding: 10px;
@@ -117,14 +117,14 @@ header h1 emp{
 font-style: italic;
 background-color: rgba(238, 218, 108, 0.99);
 }
-  header p{
+header p{
   margin-top: 15px;
   color: #c1ab2e;
   margin-bottom: 20px;
   font-style: italic;
 }
 img{
-  width: 70%;
+  width: 90%;
   margin: auto;
 }
 .info{
@@ -141,7 +141,7 @@ img{
 }
 #myform label{
   margin-right: 4px;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .d-none{
@@ -192,7 +192,7 @@ background-color: indianred;
 text-align: left;
 border: 3px solid lightgray;
 width: 330px;
-margin: 20px auto;
+margin: 20px;
 background-color:#efe3e3;
 }
 .profile-info label{
@@ -209,10 +209,15 @@ margin-bottom: 70px;
 .body form{
   margin-top: 40px;
   text-align: right;
-  padding-right: 37%;
+  padding-right: 40%;
+}
+@media screen and (max-width: 540px){
+	.body form{
+	   padding-right: 25%;
+	}
 }
 .submit-order{
-  width: 200px;
+  width: 180px;
   height: 30px;
   cursor: pointer;
 }
@@ -228,25 +233,70 @@ button{
   height: 25px;
   cursor: pointer;
 }
+.order-username{
+  display: inline-block;
+  width: 100px;
+}
 .orders a, .details a{
   text-decoration: none;
   color: black;
 }
 .order-details{
 border: 1px solid lightgray;
-width: 320px;
+width: 340px;
 margin: 10px auto;
 }
 .order-info{
 text-align: left;
 padding: 10px;
 }
-.location{
-  width: 200px;
+.order-info label{
+  font-weight: 700;
+  margin-right: 3px;
 }
+.location, .location1{
+  width: 220px;
+  height: 32px;
+}
+
+@media screen and (max-width: 630px){
+.location{
+  margin-left: 110px;
+}
+}
+
+@media screen and (max-width: 550px){
+.location1{
+  margin-left: 50px;
+}
+}
+
 .present-location{
   color: cadetblue;
 text-transform: capitalize;
+font-size: 12px;
+}
+.dest-modal, .location-modal{
+width: 400px;
+margin: 10px auto;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
+padding: 10px;
+background-color: white;
+color: black;
+position: absolute;
+left: 50%;
+margin-left: -200px;
+z-index: 1;
+}
+.dest-modal input, .location-modal input{
+width: 300px;
+text-align: left;
+padding: 3px;
+margin-top: 10px;
+height: 30px;
 }
 .red{
   color: red;
@@ -272,6 +322,7 @@ text-transform: capitalize;
 }
 .delivered{
   color: green;
+  font-weight: 900;
 }
 .search-by-user{
 margin-top: 10px;
@@ -295,5 +346,8 @@ padding: 10px;
 }
 .admin-profile label{
 color: #3f3a3a;
+}
+.d-none{
+  display: none;
 }
 

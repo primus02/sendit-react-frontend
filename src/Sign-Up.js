@@ -5,16 +5,40 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
 
+const google = window.google ? window.google : {};
+
 
 function SignUp(props){
 
+    const [address, setAddress] = useState("");
+
+
     useEffect(()=>{
-        const imageChanger = setInterval(()=>{
+       
+    let  autocomplete = new google.maps.places.Autocomplete(
+        (document.getElementsByClassName('input-address')[0]),
+
+        { types: ['geocode']});
+
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+           completeAddress(autocomplete);
+
+    });
+
+    const completeAddress=()=>{
+        setAddress(document.getElementsByClassName('input-address')[0].value);
+      };
+
+    const imageChanger = setInterval(()=>{
              changeImage();
         }, 5000);
 
         return ()=> clearInterval(imageChanger);
-    });
+
+    }, []);
+
 
     const url = "https://sendit.herokuapp.com";
 
@@ -35,8 +59,11 @@ function SignUp(props){
   
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
+    const [mobile, setMobile] = useState("");
+    // const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [password1, setPassword1] = useState("");
 
   const updateName =(e)=>{
       setName(e.target.value);
@@ -44,6 +71,14 @@ function SignUp(props){
 
   const updateUsername =(e)=>{
     setUsername(e.target.value);
+};
+
+const updateMobile =(e)=>{
+    setMobile(e.target.value);
+};
+
+const updateAddress =(e)=>{
+    setAddress(e.target.value);
 };
 
 const updateEmail =(e)=>{
@@ -54,9 +89,20 @@ const updatePassword =(e)=>{
     setPassword(e.target.value);
 };
 
+const updatePassword1 =(e)=>{
+    setPassword1(e.target.value);
+};
+
+
 const createUser=(e)=>{
    e.preventDefault();
-
+ 
+       if(password !== password1){
+           toast.error("Passwords must match");
+           return false;
+       }
+       
+else{
     fetch(`${url}/signup`, {
         // mode: "no-cors",
         method: "POST",
@@ -68,6 +114,8 @@ const createUser=(e)=>{
         body: JSON.stringify({
           name,
           username: username.toLowerCase(),
+          mobile,
+          address,
           email,
           password
           
@@ -98,7 +146,9 @@ const createUser=(e)=>{
                 }
               })
         .catch((err) => console.log("err occured", err));
+            }
 };
+
 
 
     return(
@@ -107,7 +157,7 @@ const createUser=(e)=>{
                 <ul className="nav">
                     <li><Link to="/about-us">About Us</Link></li>
                     <li><Link to="/contact-us">Contact Us</Link></li>
-                    <li><Link to="/">Home Page</Link></li>
+                    <li><Link to="/">Sign In</Link></li>
                     <li className="admin"><Link to="/admin">Admin</Link></li>
                     <ToastContainer draggable={false} transition={Zoom} autoClose={3000}/>
                 </ul>
@@ -124,12 +174,21 @@ const createUser=(e)=>{
                     <label>Username:</label>
                     <input type="text" className="input-username" placeholder="Enter a username!" value={username} onChange={updateUsername} required/><br></br>
                     
+                    <label>Mobile-No:</label>
+                    <input type="tel" className="input-mobile" placeholder="example: +2348012345678"  pattern="\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$" value={mobile} onChange={updateMobile} required/><br></br>
+
+                    <label>Contact Address:</label>
+                    <input type="text" className="input-address" placeholder="Enter your address!" value={address} onChange={updateAddress} required/><br></br>
+
                     <label>Email Address:</label>
                     <input type="email" className="input-email" placeholder="Enter a valid email!" value={email} onChange={updateEmail} required/><br></br>
                     
                     <label>Password:</label>
-                    <input type="password" className="input-password" placeholder="Enter a passowrd!" value={password} onChange={updatePassword} required />
+                    <input type="password" className="input-password" placeholder="Enter a password!" value={password} onChange={updatePassword} required /><br></br>
                     
+                    <label>Confirm Password:</label>
+                    <input type="password" className="confirm-password" placeholder="Re-enter password!" value={password1} onChange={updatePassword1} required />
+
                     <p><button type="submit" className="create-acct">Create Account</button></p>
                     
                 </form>

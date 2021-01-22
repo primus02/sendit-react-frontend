@@ -8,7 +8,7 @@ import "./App.css";
 function UserProfile(props){
     useEffect(()=>{
         getuserDetails();
-    });
+    }, []);
 
 const username = localStorage.getItem("username");
 
@@ -17,6 +17,10 @@ const url = "https://sendit.herokuapp.com";
 const name = localStorage.getItem("name");
 
 const email = localStorage.getItem("email");
+
+const mobile = localStorage.getItem("mobile");
+
+const address = localStorage.getItem("address");
 
 const token = localStorage.getItem("token");
 
@@ -78,6 +82,8 @@ const token = localStorage.getItem("token");
                         <h3><label>Username: </label> <span className="username">{username}</span></h3>
                         <h3><label>Name: </label><span className="name">{name}</span></h3>
                         <h3><label>Email: </label> <span className="email">{email}</span></h3>
+                        <h3><label>Mobile-No: </label> <span className="mobile">{mobile}</span></h3>
+                        <h3><label>Address: </label> <span className="address">{address}</span></h3>
                     </div>
                 </header>
 

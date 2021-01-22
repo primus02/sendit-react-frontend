@@ -45,7 +45,7 @@ function CreateOrder(props){
             setDestination(document.getElementsByClassName('input-dest')[0].value);
           }
 
-    }, []);
+    });
 
     const token = localStorage.getItem("token");
     const url = "https://sendit.herokuapp.com";

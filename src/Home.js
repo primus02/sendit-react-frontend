@@ -15,7 +15,7 @@ function Home(props){
         }, 5000);
 
         return ()=> clearInterval(imageChanger);
-    });
+    }, []);
 
     const url = "https://sendit.herokuapp.com";
 
@@ -67,19 +67,17 @@ const updatePassword =(e)=>{
             .then(res=>res.json())
             .then(res=>{
             
-            if(res.message=== "Email does not exist" && password !== ""){
-                toast.error("Kindly provide a valid email!");
-                return false
-            }
-            else if(res.message=== "Auth failed"){
-                toast.error("Kindly provide a valid password!");
-                return false
+            if(res.message=== "Email does not exist" || res.message=== "Auth failed"){
+                toast.error("invalid email / password!");
+                return false;
             }
             else if(res.token){
                 localStorage.setItem("token", res.token);
                 localStorage.setItem("username", res.data[0].username);
                 localStorage.setItem("name", res.data[0].name);
                 localStorage.setItem("email", res.data[0].email);
+                localStorage.setItem("mobile", res.data[0].mobile);
+                localStorage.setItem("address", res.data[0].address);
                 
                 toast.success("Sign in successfull!");
                 

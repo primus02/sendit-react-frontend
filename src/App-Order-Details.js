@@ -7,7 +7,7 @@ import "./App.css";
 function AppOrderDetails(props){
    useEffect(()=>{
       getorderDetails();
-   });
+   }, []);
 
    const username = localStorage.getItem("username");
 
@@ -64,15 +64,15 @@ function AppOrderDetails(props){
                             <p className="order">Order details;</p>
                             
                             <div className="order-info">
-                                <label>Price(#): <span className="price">{order.price} </span></label><br></br>
+                                <label>Price(#): </label><span className="price">{order.price} </span><br></br>
 
-                                <label>Pick-Up Location: <span className="location">{order.location}</span></label><br></br>
+                                <label>Pick-Up Location: </label><span className="pick-location">{order.location}</span><br></br>
 
-                                <label>Destination: <span className="destination">{order.destination}</span></label><br></br>
+                                <label>Destination: </label><span className="destination">{order.destination}</span><br></br>
 
-                                <label>Recipient Mobile: <span className="mobile">{order.recmobile}</span></label><br></br>
+                                <label>Recipient Mobile: </label><span className="mobile">{order.recmobile}</span><br></br>
 
-                                <label>Date of creation: <span className="date">{order.date}</span></label>
+                                <label>Date of creation: </label><span className="date">{order.date}</span>
                             </div>
                             
                     </div>

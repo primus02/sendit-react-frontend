@@ -29,7 +29,7 @@ function OrderDetails(props){
         const completeAddress=()=>{
             setNewDestination(document.getElementsByClassName('new-destination')[0].value);
           }
-    }, []);
+    });
 
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";

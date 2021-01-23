@@ -27,9 +27,7 @@ function Home(props){
         if(counter===images.length){
             counter=0;
         }
-        else if(counter === 0){
-            counter = images.length-1
-        }
+        
         imageRef.current.src = images[counter];
         counter++
     }

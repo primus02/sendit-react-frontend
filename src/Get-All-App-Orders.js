@@ -99,13 +99,6 @@ function GetAllAppOrders(props){
     const changeLocation=(orderId)=>{
         document.querySelector(".location-modal").classList.remove("d-none");
         localStorage.setItem("id", orderId);
-        document.querySelectorAll(".orders-holder button").forEach((button)=>{
-            button.setAttribute("disabled", "");
-        });
-
-        document.querySelectorAll(".orders-holder span").forEach((span)=>{
-            span.setAttribute("disabled", "");
-        });
 
         document.querySelector(".orders-holder").classList.add("d-none");
 

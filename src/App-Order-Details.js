@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import "./App.css";
 
@@ -12,6 +12,7 @@ function AppOrderDetails(props){
    const username = localStorage.getItem("username");
 
   const token = localStorage.getItem("token");
+  const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
   const url = "https://sendit.herokuapp.com";
    const [order, setOrder]= useState({});
 
@@ -24,6 +25,12 @@ function AppOrderDetails(props){
     })
     .then(res=> res.json())
     .then(res=>{
+
+        if(res.message.message ==="jwt expired"){
+            localStorage.clear();
+            props.history.push("/admin");
+        }
+
         if(res.message=== "Order found successfully"){
             setOrder(res.order);
         }
@@ -38,6 +45,10 @@ function AppOrderDetails(props){
        localStorage.clear();
        props.history.push("/");
    };
+
+   if(!isAdminLoggedIn){
+    return <Redirect to="/admin"/>
+}
 
     return(
        <div>
@@ -64,6 +75,9 @@ function AppOrderDetails(props){
                             <p className="order">Order details;</p>
                             
                             <div className="order-info">
+
+                                <label>Weight(Kg): </label><span className="weight">{order.weight} </span><br></br>
+
                                 <label>Price(#): </label><span className="price">{order.price} </span><br></br>
 
                                 <label>Pick-Up Location: </label><span className="pick-location">{order.location}</span><br></br>

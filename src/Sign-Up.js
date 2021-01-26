@@ -50,7 +50,9 @@ function SignUp(props){
         if(counter===images.length){
             counter=0;
         }
-        
+        else if(counter === 0){
+            counter = images.length-1
+        }
         imageRef.current.src = images[counter];
         counter++
     }
@@ -94,7 +96,10 @@ const updatePassword1 =(e)=>{
 
 const createUser=(e)=>{
    e.preventDefault();
- 
+       if(password.length < 6){
+           toast.info("Password must be atleast 6 characters");
+           return false;
+       }
        if(password !== password1){
            toast.error("Passwords must match");
            return false;

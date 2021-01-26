@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import "./App.css";
 
@@ -14,6 +14,7 @@ function GetAllOrders(props){
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";
     const token = localStorage.getItem("token");
+    const isUserLoggedIn= localStorage.getItem("isUserLoggedIn");
 
     const [orders, setOrders]= useState([]);
 
@@ -27,6 +28,12 @@ function GetAllOrders(props){
         })
         .then(res=> res.json())
         .then(res=>{
+
+            if(res.message.message ==="jwt expired"){
+                localStorage.clear();
+                props.history.push("/");
+            }
+
             if(res.message=== "No order found"){
                 setOrders([]);
             }
@@ -45,6 +52,9 @@ function GetAllOrders(props){
         props.history.push("/");
     };
 
+    if(!isUserLoggedIn){
+        return <Redirect to="/"/>
+    }
 
     return(
         <div>

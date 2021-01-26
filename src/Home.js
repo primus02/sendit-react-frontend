@@ -27,7 +27,9 @@ function Home(props){
         if(counter===images.length){
             counter=0;
         }
-        
+        else if(counter === 0){
+            counter = images.length-1
+        }
         imageRef.current.src = images[counter];
         counter++
     }
@@ -76,6 +78,7 @@ const updatePassword =(e)=>{
                 localStorage.setItem("email", res.data[0].email);
                 localStorage.setItem("mobile", res.data[0].mobile);
                 localStorage.setItem("address", res.data[0].address);
+                localStorage.setItem("isUserLoggedIn", true);
                 
                 toast.success("Sign in successfull!");
                 

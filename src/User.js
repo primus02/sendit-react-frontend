@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import "./App.css";
 
@@ -7,11 +7,16 @@ import "./App.css";
 function UserIn(props){
    
     const username = localStorage.getItem("username");
+    const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
 
     const signOut=()=>{
         localStorage.clear();
         props.history.push("/");
     };
+
+    if(!isUserLoggedIn){
+        return <Redirect to="/"/>
+    }
 
     return(
         <div>

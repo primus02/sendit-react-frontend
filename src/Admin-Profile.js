@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import "./App.css";
 
@@ -13,6 +13,7 @@ function AdminProfile(props){
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";
     const token = localStorage.getItem("token");
+    const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
 
      const [ordersCount, setOrdersCount]= useState(0);
      const [completedCount, setCompletedCount]= useState(0);
@@ -28,6 +29,10 @@ function AdminProfile(props){
         })
         .then(res=>res.json())
         .then(res=>{
+            if(res.message.message ==="jwt expired"){
+                localStorage.clear();
+                props.history.push("/admin");
+            }
             if(res.message === "No order found"){
                setOrdersCount(0);
             }
@@ -52,6 +57,12 @@ function AdminProfile(props){
          localStorage.clear();
          props.history.push("/");
      };
+
+
+     if(!isAdminLoggedIn){
+         return <Redirect to="/admin"/>
+     }
+     
 
     return(
         <div>

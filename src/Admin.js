@@ -50,6 +50,7 @@ function AdminSignin(props){
            else if(res.token){
                localStorage.setItem("token", res.token);
                localStorage.setItem("username", res.data[0].username);
+               localStorage.setItem("isAdminLoggedIn", true);
                
                toast.success("Successfully signed in");
               

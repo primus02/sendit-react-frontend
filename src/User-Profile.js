@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import "./App.css";
 
@@ -24,6 +24,8 @@ const address = localStorage.getItem("address");
 
 const token = localStorage.getItem("token");
 
+const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+
     const [orders, setOrders]= useState([]);
     const [completedCount, setCompletedCount]=useState(0);
     const [inTransitCount, setInTransitCount]=useState(0);
@@ -45,6 +47,12 @@ const token = localStorage.getItem("token");
         })
         .then(res=>res.json())
         .then(res=>{
+
+            if(res.message.message ==="jwt expired"){
+                localStorage.clear();
+                props.history.push("/");
+            }
+
             if(res.message === "No order found"){
             setOrders([]);
             }
@@ -62,6 +70,10 @@ const token = localStorage.getItem("token");
             console.log("Error", err);
         });
     };
+
+    if(!isUserLoggedIn){
+        return <Redirect to="/"/>
+    }
 
     return(
         <div>

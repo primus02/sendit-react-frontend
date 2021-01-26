@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import  {toast, ToastContainer, Zoom} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -35,9 +35,11 @@ function GetAllAppOrders(props){
     const username = localStorage.getItem("username");
     const url = "https://sendit.herokuapp.com";
    const token = localStorage.getItem("token"); 
+   const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
 
     const [orders, setOrders]= useState([]);
     const [userName, setUsername]=useState("");
+    const [newStatus, setNewStatus]=useState("");
 
     const getAllAppOrders=()=>{
         fetch(`${url}/get-all-orders`, {
@@ -48,6 +50,12 @@ function GetAllAppOrders(props){
         })
         .then(res=> res.json())
         .then(res=>{
+
+            if(res.message.message ==="jwt expired"){
+                localStorage.clear();
+                props.history.push("/admin");
+            }
+
             if(res.message=== "No order found"){
                 setOrders([]);
             }
@@ -61,10 +69,22 @@ function GetAllAppOrders(props){
         });
     };
 
-    const changeStatus=(orderId)=>{
-        const newStatus = prompt("Kindly enter the new status of this order");
+    const updateStatus=(e)=>{
+        setNewStatus(e.target.value);
+    };
+
+    const updateNewStatus=(orderId)=>{
+        document.querySelector(".status-modal").classList.remove("d-none");
+        localStorage.setItem("id", orderId);
+
+        document.querySelector(".orders-holder").classList.add("d-none");
+    };
+
+    const changeStatus=()=>{
+
+          const orderId = localStorage.getItem("id");
 			
-			if(newStatus){
+			if(newStatus !==""){
             
 			 fetch(`${url}/change-status/${orderId}`, {
               method: "PATCH",
@@ -73,11 +93,17 @@ function GetAllAppOrders(props){
                Authorization: `Bearer ${token}`
               },
              body: JSON.stringify({
-              status: newStatus.toLowerCase()
+              status: newStatus
              })
            })
            .then(res=> res.json())
            .then(res=>{
+
+            if(res.message.message ==="jwt expired"){
+                localStorage.clear();
+                props.history.push("/admin");
+            }
+
              if(res.message=== `Order ${orderId} updated successfully`){
 		
              toast.success("Success, order's new status updated!");
@@ -92,6 +118,7 @@ function GetAllAppOrders(props){
          });
 	    }
          else{
+             toast.info("Kindly provide the new status for this order");
 		 return;
 	    } 
     };
@@ -127,6 +154,12 @@ function GetAllAppOrders(props){
             })
             .then(res=> res.json())
             .then(res=>{
+
+                if(res.message.message ==="jwt expired"){
+                    localStorage.clear();
+                    props.history.push("/admin");
+                }
+
                if(res.message=== `Order ${orderId} updated successfully`){
                toast.success("Success, order's present location updated!");
       
@@ -140,7 +173,8 @@ function GetAllAppOrders(props){
           });
           }
           else{
-              window.location.reload();
+              toast.info("Kindly provide the new location of this order");
+              return;
           }
     };
 
@@ -152,6 +186,8 @@ function GetAllAppOrders(props){
  
 
     const filterOrders=(e)=>{
+       e.preventDefault();
+
         setUsername(e.target.value); 
           orders.map(order=>{
               let orderUsername = order.username;
@@ -164,6 +200,10 @@ function GetAllAppOrders(props){
               }
           });
     };
+
+    if(!isAdminLoggedIn){
+        return <Redirect to="/admin"/>
+    }
 
     return(
        <div>
@@ -178,13 +218,26 @@ function GetAllAppOrders(props){
             
             <div className="main-body">
 
-            <div className="location-modal d-none">
-		       <p>Kindly provide the new location for this order below and click on the submit button</p>
+                <div className="location-modal d-none">
+                    <p>Kindly provide the new location for this order below and click on the submit button</p>
+                    
+                    <input type="text" className="new-location" placeholder="Enter new location" value={newLocation} onChange={updatedLocation}/>
+                    
+                    <p><button onClick={updateNewLocation}>Submit</button></p>
+                </div>
+
+                <div className="status-modal d-none">
+		            <p>Kindly select the new status for this order below and click on the submit button</p>
 			   
-			   <input type="text" className="new-location" placeholder="Enter new location" value={newLocation} onChange={updatedLocation}/>
-			   
-			   <p><button onClick={updateNewLocation}>Submit</button></p>
-		   </div>
+                    <select className="select" onChange={updateStatus}>
+                        <option value="">Select Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    
+                    <p><button onClick={changeStatus}>Submit</button></p>
+		        </div>
 
 
                 <header>
@@ -207,7 +260,7 @@ function GetAllAppOrders(props){
                         {orders.length<1 ? " " : orders.map(order=>(
                             order.price ? 
                         <div className="orders" key={order._id}>  
-                            <p className="order"><span className="order-username">{order.username}</span><button className="details-btn"><Link to={`/app-order/${order._id}`}>Details</Link></button><button className="status" onClick={()=>{changeStatus(order._id)}}>Status: <span className={order.status==="pending" ? "red" : "status-state"} >{order.status}</span></button><button className="location" onClick={()=>{changeLocation(order._id)}}>Pres-Location: <span className="present-location" >{order.preslocation}</span></button></p> 
+                            <p className="order"><span className="order-username">{order.username}</span><button className="details-btn"><Link to={`/app-order/${order._id}`}>Details</Link></button><button className="status" onClick={()=>{updateNewStatus(order._id)}}>Status: <span className={order.status==="pending" ? "red" : "status-state"} >{order.status}</span></button><button className="location" onClick={()=>{changeLocation(order._id)}}>Pres-Location: <span className="present-location" >{order.preslocation}</span></button></p> 
                          </div> : ""
                         )) }
                         

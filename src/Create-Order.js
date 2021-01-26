@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import  {toast, ToastContainer, Zoom} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -50,6 +50,7 @@ function CreateOrder(props){
     const token = localStorage.getItem("token");
     const url = "https://sendit.herokuapp.com";
     const username = localStorage.getItem("username");
+    const isUserLoggedIn= localStorage.getItem("isUserLoggedIn");
 
 
     const updateLocation=(e)=>{
@@ -99,6 +100,12 @@ const createOrder=(e)=>{
         })
         .then(res=> res.json())
         .then(res=>{
+
+            if(res.message.message ==="jwt expired"){
+                localStorage.clear();
+                props.history.push("/");
+            }
+
             if(res.message=== "Order created successfully"){
 				
                 toast.success("Order created successfully!");
@@ -119,6 +126,9 @@ const signOut=()=>{
    props.history.push("/");
 };
 
+if(!isUserLoggedIn){
+    return <Redirect to="/"/>
+}
 
     return(
         <div>

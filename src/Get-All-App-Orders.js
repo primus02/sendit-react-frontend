@@ -205,7 +205,7 @@ function GetAllAppOrders(props){
     }
 
     return(
-       <div>
+       <div key={counter + 1}>
             <nav> 
                 <ul className="nav">
                     <li><Link to="/admin-profile">Home Page</Link></li>
@@ -255,7 +255,7 @@ function GetAllAppOrders(props){
                         <input type="text" className="search" value={userName} onChange={filterOrders}/>
                     </div>
                     
-                    <div className="orders-holder" key={counter + 1}>
+                    <div className="orders-holder">
                         {orders.length<1 ? " " : orders.map(order=>(
                             order.price ? 
                         <div className="orders" key={order._id}>  

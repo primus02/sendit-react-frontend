@@ -209,7 +209,7 @@ function GetAllAppOrders(props){
        <div>
             <nav> 
                 <ul className="nav">
-                    <li><Link to="/admin-profile">Profile</Link></li>
+                    <li><Link to="/admin-profile">Home Page</Link></li>
                     <li><Link to="#">Create Order</Link></li>
                     <li className="sign-out" onClick={signOut}>Sign out</li>
                     <ToastContainer draggable={false} transition={Zoom} autoClose={3000}/>

@@ -56,7 +56,7 @@ function AppOrderDetails(props){
                 <ul className="nav">
                     <li><Link to="/admin-profile">Home Page</Link></li>
                     <li><Link to="#">Create Order</Link></li>
-                    <li><Link to="/all-app-orders">Get orders</Link></li>
+                    <li><Link to="/all-app-orders">Get Orders</Link></li>
                     <li className="sign-out" onClick={signOut}>Sign out</li>
                 </ul>
             </nav>

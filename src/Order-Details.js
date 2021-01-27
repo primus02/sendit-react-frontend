@@ -250,7 +250,7 @@ function OrderDetails(props){
                     
                     <h3>Here are the details of your order.</h3>
                             
-                        <p> Use the edit button to change the information of your order and <br></br> the cancel button to cancel your order</p>
+                        <p className={order.status==="pending" ? "" : "d-none"}> Use the edit button to change the information of your order and <br></br> the cancel button to cancel your order</p>
                     
                         <div className="orders order-details">  
                             <p className="order">Order details;</p>

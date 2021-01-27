@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
 const google = window.google ? window.google : {};
-let counter = 1;
 
 function GetAllAppOrders(props){
 
@@ -205,7 +204,7 @@ function GetAllAppOrders(props){
     }
 
     return(
-       <div key={counter + 1}>
+       <div>
             <nav> 
                 <ul className="nav">
                     <li><Link to="/admin-profile">Home Page</Link></li>

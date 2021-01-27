@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
 const google = window.google ? window.google : {};
-
+let counter = 1;
 
 function GetAllAppOrders(props){
 
@@ -186,7 +186,6 @@ function GetAllAppOrders(props){
  
 
     const filterOrders=(e)=>{
-       e.preventDefault();
 
         setUsername(e.target.value); 
           orders.map(order=>{
@@ -256,7 +255,7 @@ function GetAllAppOrders(props){
                         <input type="text" className="search" value={userName} onChange={filterOrders}/>
                     </div>
                     
-                    <div className="orders-holder">
+                    <div className="orders-holder" key={counter + 1}>
                         {orders.length<1 ? " " : orders.map(order=>(
                             order.price ? 
                         <div className="orders" key={order._id}>  

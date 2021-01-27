@@ -80,7 +80,7 @@ const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
             <nav> 
                 <ul className="nav">
                     <li><Link to="/create-order">Create Order</Link></li>
-                    <li><Link to="/all-orders">Get all orders</Link></li>
+                    <li><Link to="/all-orders">Get Orders</Link></li>
                     <li className="sign-out" onClick={signOut}>Sign out</li>
                 </ul>
             </nav>

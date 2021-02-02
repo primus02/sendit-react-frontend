@@ -134,7 +134,7 @@ if(!isUserLoggedIn){
         <div>
             <nav> 
                 <ul className="nav">
-                    <li className="profile"><Link to="/user-profile">Home Page</Link></li>
+                    <li className="profile"><Link to="/user-profile">Profile</Link></li>
                     <li><Link to="/all-orders">Get Orders</Link></li>
                     <li className="sign-out" onClick={signOut}>Sign out</li>
                     <ToastContainer draggable={false} transition={Zoom} autoClose={3000}/>

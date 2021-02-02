@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import  {toast, ToastContainer, Zoom} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -152,6 +152,11 @@ else{
             }
 };
 
+    const isUserLoggedIn= localStorage.getItem("isUserLoggedIn");
+
+    if(isUserLoggedIn){
+        return <Redirect to="/user-profile"/>
+    }
 
 
     return(

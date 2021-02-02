@@ -1,9 +1,15 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 import "./App.css";
 
 function AboutUs(){
+    const isUserLoggedIn= localStorage.getItem("isUserLoggedIn");
+
+    if(isUserLoggedIn){
+        return <Redirect to="/user-profile"/>
+    }
+    
     return(
         <div>
             <nav> 
